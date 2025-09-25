@@ -22,10 +22,13 @@ jobs:
         with:
           r-version: '4.4.1'
 
-      - name: Install R packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          needs: website
+      - name: Install renv
+        run: |
+          Rscript -e 'install.packages("renv")'
+
+      - name: Restore R packages with renv
+        run: |
+          Rscript -e 'renv::restore()'
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
