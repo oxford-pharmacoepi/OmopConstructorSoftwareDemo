@@ -9,7 +9,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
-  <title>CohortCharacteristics</title>
+  <title>OmopConstructor</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -194,99 +194,143 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">CohortCharacteristics</h1>
-  <p class="subtitle">A R package to Characterise cohorts</p>
+  <h1 class="title">OmopConstructor</h1>
+  <p class="subtitle">An R Package for Customising Observation Periods in OMOP CDM Analyses</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="cohortcharacteristics" class="slide level2">
-<h2>CohortCharacteristics</h2>
+<section id="omopconstructor" class="slide level2">
+<h2>OmopConstructor</h2>
 
-<img data-src="https://github.com/darwin-eu/CohortCharacteristics/blob/main/man/figures/logo.png?raw=true" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="website" class="slide level2">
-<h2>Website</h2>
-<p>Cohort characteristics is on cran:</p>
+<img data-src="logo.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="omopconstructor-1" class="slide level2">
+<h2>OmopConstructor</h2>
+<p>You can install <strong>OmopConstructor</strong> from GitHub:</p>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortCharacteristics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pak)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">pkg_install</span>(<span class="st">"ohdsi/OmopConstructor"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment">
-<p>You can also install the development version from our github repo:</p>
+<p>It has been submitted to CRAN and it should be updated there soon!</p>
 </div>
 <div class="fragment">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div class="fragment">
-<p>The documentation and vignettes of the packages can be found in our page: <a href="https://darwin-eu.github.io/CohortCharacteristics/" class="uri">https://darwin-eu.github.io/CohortCharacteristics/</a></p>
+<p>The documentation and vignettes of the packages can be found in our page: <a href="https://ohdsi.github.io/OmopConstructor/" class="uri">https://ohdsi.github.io/OmopConstructor/</a></p>
 </div>
 </section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+
+<img data-src="fig_8.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="lets-get-started" class="slide level2">
 <h2>Let’s get started</h2>
 <p>For this presentation we will use the <strong>GiBleed</strong> dataset from <a href="https://ohdsi.github.io/omock/"><strong>omock</strong></a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omock)</span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockCdmFromDataset</span>(<span class="at">datasetName =</span> <span class="st">"GiBleed"</span>, <span class="at">source =</span> <span class="st">"duckdb"</span>)</span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>cdm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omock)</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockCdmFromDataset</span>(<span class="at">datasetName =</span> <span class="st">"GiBleed"</span>, <span class="at">source =</span> <span class="st">"duckdb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>cdm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── # OMOP CDM reference (duckdb) of GiBleed ────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• omop tables: care_site, cdm_source, concept, concept_ancestor, concept_class, concept_relationship, concept_synonym,
+condition_era, condition_occurrence, cost, death, device_exposure, domain, dose_era, drug_era, drug_exposure,
+drug_strength, fact_relationship, location, measurement, metadata, note, note_nlp, observation, observation_period,
+payer_plan_period, person, procedure_occurrence, provider, relationship, source_to_concept_map, specimen, visit_detail,
+visit_occurrence, vocabulary</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• cohort tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• achilles tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• other tables: -</code></pre>
+</div>
+</div>
 </div>
 </section>
-<section>
-<section id="section-title" class="title-slide slide level1 center">
-<h1>Section title</h1>
-
+<section id="the-cdm-reference-object" class="slide level2">
+<h2>The cdm reference object</h2>
+<p>If you are not familiar with the <code>cdm_reference</code> object you can take a look to its formal definition: <a href="https://darwin-eu-dev.github.io/omopgenerics/articles/cdm_reference.html">cdm_reference</a>.</p>
+<div class="fragment">
+<p>We usually would use the <a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a> package to create a cdm_reference to our database.</p>
+</div>
 </section>
-<section id="person-table" class="slide level2">
-<h2>Person table</h2>
-<p>Let’s see the <em>person</em> table:</p>
+<section id="characterisation-of-the-observation-period" class="slide level2">
+<h2>Characterisation of the observation period</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>person</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>observation_period</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpvwbXES/file699f67175881.duckdb]
-   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id
-       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;
- 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516
- 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527
- 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527
- 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527
- 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516
- 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527
- 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527
- 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527
- 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527
-10       111              8532          1975              5            2 1975-05-02 00:00:00            8527
-# ℹ more rows
-# ℹ 11 more variables: ethnicity_concept_id &lt;int&gt;, location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;,
-#   person_source_value &lt;chr&gt;, gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;,
-#   race_source_concept_id &lt;int&gt;, ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
+<pre><code># Source:   table&lt;observation_period&gt; [?? x 5]
+# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpJ1wPYY/file2bf115e3b099.duckdb]
+   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
+                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
+ 1                     6         6 1963-12-31                    2007-02-06                                44814724
+ 2                    13        13 2009-04-26                    2019-04-14                                44814724
+ 3                    27        27 2002-01-30                    2018-11-21                                44814724
+ 4                    16        16 1971-10-14                    2017-11-02                                44814724
+ 5                    55        55 2009-05-30                    2019-03-23                                44814724
+ 6                    60        60 1990-11-21                    2019-01-23                                44814724
+ 7                    42        42 1909-11-03                    2019-03-13                                44814724
+ 8                    33        33 1986-05-12                    2018-09-10                                44814724
+ 9                    18        18 1965-11-17                    2018-11-07                                44814724
+10                    25        25 2007-03-18                    2019-04-07                                44814724
+# ℹ more rows</code></pre>
 </div>
 </div>
 </section>
-<section id="snapshot" class="slide level2">
-<h2>Snapshot</h2>
+<section id="characterisation-of-the-observation-period-1" class="slide level2">
+<h2>Characterisation of the observation period</h2>
+<p>We will use <a href="https://ohdsi.github.io/OmopSketch/">OmopSketch</a> to characterise the current observation period.</p>
+<div class="fragment">
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(OmopSketch)</span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">sex =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plotInObservation</span>(result, <span class="at">colour =</span> <span class="st">"sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="qwxodaacjk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qwxodaacjk table {
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="characterisation-of-the-observation-period-2" class="slide level2">
+<h2>Characterisation of the observation period</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">summariseObservationPeriod</span>(cdm<span class="sc">$</span>observation_period)</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">tableObservationPeriod</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="uvyshungoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvyshungoq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qwxodaacjk thead, #qwxodaacjk tbody, #qwxodaacjk tfoot, #qwxodaacjk tr, #qwxodaacjk td, #qwxodaacjk th {
+#uvyshungoq thead, #uvyshungoq tbody, #uvyshungoq tfoot, #uvyshungoq tr, #uvyshungoq td, #uvyshungoq th {
   border-style: none;
 }
 
-#qwxodaacjk p {
+#uvyshungoq p {
   margin: 0;
   padding: 0;
 }
 
-#qwxodaacjk .gt_table {
+#uvyshungoq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -312,12 +356,12 @@
   border-left-color: #D9D9D9;
 }
 
-#qwxodaacjk .gt_caption {
+#uvyshungoq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qwxodaacjk .gt_title {
+#uvyshungoq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -329,7 +373,7 @@
   border-bottom-width: 0;
 }
 
-#qwxodaacjk .gt_subtitle {
+#uvyshungoq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -341,7 +385,7 @@
   border-top-width: 0;
 }
 
-#qwxodaacjk .gt_heading {
+#uvyshungoq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -353,13 +397,13 @@
   border-right-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_bottom_border {
+#uvyshungoq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_col_headings {
+#uvyshungoq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -374,7 +418,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_col_heading {
+#uvyshungoq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -394,7 +438,7 @@
   overflow-x: hidden;
 }
 
-#qwxodaacjk .gt_column_spanner_outer {
+#uvyshungoq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -406,15 +450,15 @@
   padding-right: 4px;
 }
 
-#qwxodaacjk .gt_column_spanner_outer:first-child {
+#uvyshungoq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qwxodaacjk .gt_column_spanner_outer:last-child {
+#uvyshungoq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qwxodaacjk .gt_column_spanner {
+#uvyshungoq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -426,11 +470,11 @@
   width: 100%;
 }
 
-#qwxodaacjk .gt_spanner_row {
+#uvyshungoq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qwxodaacjk .gt_group_heading {
+#uvyshungoq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -456,7 +500,7 @@
   text-align: left;
 }
 
-#qwxodaacjk .gt_empty_group_heading {
+#uvyshungoq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -471,15 +515,15 @@
   vertical-align: middle;
 }
 
-#qwxodaacjk .gt_from_md > :first-child {
+#uvyshungoq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qwxodaacjk .gt_from_md > :last-child {
+#uvyshungoq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qwxodaacjk .gt_row {
+#uvyshungoq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -498,7 +542,7 @@
   overflow-x: hidden;
 }
 
-#qwxodaacjk .gt_stub {
+#uvyshungoq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -511,7 +555,7 @@
   padding-right: 5px;
 }
 
-#qwxodaacjk .gt_stub_row_group {
+#uvyshungoq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -525,15 +569,15 @@
   vertical-align: top;
 }
 
-#qwxodaacjk .gt_row_group_first td {
+#uvyshungoq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qwxodaacjk .gt_row_group_first th {
+#uvyshungoq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qwxodaacjk .gt_summary_row {
+#uvyshungoq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -543,16 +587,16 @@
   padding-right: 5px;
 }
 
-#qwxodaacjk .gt_first_summary_row {
+#uvyshungoq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_first_summary_row.thick {
+#uvyshungoq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qwxodaacjk .gt_last_summary_row {
+#uvyshungoq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,7 +606,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_grand_summary_row {
+#uvyshungoq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -572,7 +616,7 @@
   padding-right: 5px;
 }
 
-#qwxodaacjk .gt_first_grand_summary_row {
+#uvyshungoq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -582,7 +626,7 @@
   border-top-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_last_grand_summary_row_top {
+#uvyshungoq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -592,11 +636,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_striped {
+#uvyshungoq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qwxodaacjk .gt_table_body {
+#uvyshungoq .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #D9D9D9;
@@ -605,7 +649,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_footnotes {
+#uvyshungoq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -619,7 +663,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_footnote {
+#uvyshungoq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -628,7 +672,7 @@
   padding-right: 5px;
 }
 
-#qwxodaacjk .gt_sourcenotes {
+#uvyshungoq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -642,7 +686,7 @@
   border-right-color: #D3D3D3;
 }
 
-#qwxodaacjk .gt_sourcenote {
+#uvyshungoq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -650,167 +694,160 @@
   padding-right: 5px;
 }
 
-#qwxodaacjk .gt_left {
+#uvyshungoq .gt_left {
   text-align: left;
 }
 
-#qwxodaacjk .gt_center {
+#uvyshungoq .gt_center {
   text-align: center;
 }
 
-#qwxodaacjk .gt_right {
+#uvyshungoq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qwxodaacjk .gt_font_normal {
+#uvyshungoq .gt_font_normal {
   font-weight: normal;
 }
 
-#qwxodaacjk .gt_font_bold {
+#uvyshungoq .gt_font_bold {
   font-weight: bold;
 }
 
-#qwxodaacjk .gt_font_italic {
+#uvyshungoq .gt_font_italic {
   font-style: italic;
 }
 
-#qwxodaacjk .gt_super {
+#uvyshungoq .gt_super {
   font-size: 65%;
 }
 
-#qwxodaacjk .gt_footnote_marks {
+#uvyshungoq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qwxodaacjk .gt_asterisk {
+#uvyshungoq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qwxodaacjk .gt_indent_1 {
+#uvyshungoq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qwxodaacjk .gt_indent_2 {
+#uvyshungoq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qwxodaacjk .gt_indent_3 {
+#uvyshungoq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qwxodaacjk .gt_indent_4 {
+#uvyshungoq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qwxodaacjk .gt_indent_5 {
+#uvyshungoq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qwxodaacjk .katex-display {
+#uvyshungoq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qwxodaacjk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uvyshungoq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
 <table class="gt_table caption-top" data-quarto-bootstrap="false">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="gt_col_headings gt_spanner_row header">
-<th rowspan="2" id="Estimate" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Estimate</th>
-<th id="spanner-[header_name]Database name
+<th rowspan="2" id="Observation-period-ordinal" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Observation period ordinal</th>
+<th rowspan="2" id="Variable-name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Variable name</th>
+<th rowspan="2" id="Estimate-name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Estimate name</th>
+<th id="spanner-[header_name]CDM name
 [header_level]GiBleed" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #D9D9D9; font-weight: bold;" scope="col"><div class="gt_column_spanner">
-Database name
+CDM name
 </div></th>
 </tr>
 <tr class="gt_col_headings even">
-<th id="[header_name]Database-name-[header_level]GiBleed" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">GiBleed</th>
+<th id="[header_name]CDM-name-[header_level]GiBleed" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">GiBleed</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="gt_group_heading_row odd">
-<th colspan="2" id="General" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">General</th>
-</tr>
-<tr class="gt_row_group_first even">
-<td class="gt_row gt_left" headers="General  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Snapshot date</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="General  [header_name]Database name
-[header_level]GiBleed">2025-09-25</td>
-</tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="General  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Person count</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="General  [header_name]Database name
+<td class="gt_row gt_left" style="text-align: left;" headers="Observation period ordinal">all</td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
 [header_level]GiBleed">2,694</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="General  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Vocabulary version</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="General  [header_name]Database name
-[header_level]GiBleed">v5.0 18-JAN-19</td>
-</tr>
-<tr class="gt_group_heading_row odd">
-<th colspan="2" id="Observation period" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Observation period</th>
-</tr>
-<tr class="gt_row_group_first even">
-<td class="gt_row gt_left" headers="Observation period  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Observation period  [header_name]Database name
-[header_level]GiBleed">5,343</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">2,694</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Observation period  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Start date</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Observation period  [header_name]Database name
-[header_level]GiBleed">1908-09-22</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Records per person</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mean (sd)</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">1.00 (0.00)</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Observation period  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">End date</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Observation period  [header_name]Database name
-[header_level]GiBleed">2019-07-03</td>
-</tr>
-<tr class="gt_group_heading_row odd">
-<th colspan="2" id="Cdm" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Cdm</th>
-</tr>
-<tr class="gt_row_group_first even">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Source name</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">Synthea synthetic health database</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">median [Q25 - Q75]</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">1 [1 - 1]</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Version</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">v5.3.1</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Duration in days</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mean (sd)</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">21,602.60 (5,460.69)</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Holder name</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">OHDSI Community</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">median [Q25 - Q75]</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">20,872 [17,495 - 24,702]</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Release date</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">2019-05-25</td>
+<td class="gt_row gt_left" style="text-align: left;" headers="Observation period ordinal">1st</td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">2,694</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Description</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">SyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Duration in days</td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">mean (sd)</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">21,602.60 (5,460.69)</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Documentation reference</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">https://synthetichealth.github.io/synthea/</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Source type</td>
-<td class="gt_row gt_left" style="text-align: right;" headers="Cdm  [header_name]Database name
-[header_level]GiBleed">duckdb</td>
+<td class="gt_row gt_left" headers="Observation period ordinal" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Variable name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td class="gt_row gt_left" headers="Estimate name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">median [Q25 - Q75]</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header_name]CDM name
+[header_level]GiBleed">20,872 [17,495 - 24,702]</td>
 </tr>
 </tbody>
 </table>
@@ -819,26 +856,182 @@ Database name
 </div>
 </div>
 </section>
-<section id="cohortcharacteristics-1" class="slide level2">
-<h2>CohortCharacteristics</h2>
+<section id="build-observation-period" class="slide level2">
+<h2>Build observation period</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(OmopConstructor)</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(<span class="at">cdm =</span> cdm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>observation_period</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Source:   table&lt;results.test_observation_period&gt; [?? x 5]
+# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpJ1wPYY/file2bf115e3b099.duckdb]
+   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
+                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
+ 1                     1         1 1953-02-06                    2019-05-25                                   32817
+ 2                     2         2 1920-07-01                    2019-05-25                                   32817
+ 3                     3         3 1923-12-22                    2019-05-25                                   32817
+ 4                     4         5 1968-10-30                    2019-05-25                                   32817
+ 5                     5         6 1964-04-07                    2019-05-25                                   32817
+ 6                     6         7 1968-12-06                    2019-05-25                                   32817
+ 7                     7         9 1978-10-26                    2019-05-25                                   32817
+ 8                     8        11 1955-01-11                    2019-05-25                                   32817
+ 9                     9        12 1963-05-08                    2019-05-25                                   32817
+10                    10        16 1972-01-19                    2019-05-25                                   32817
+# ℹ more rows</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="characterise-observation-period" class="slide level2">
+<h2>Characterise observation period</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="first-to-last" class="slide level2">
+<h2>First to last</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="cn">Inf</span>,</span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">0</span></span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"First to last"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="only-ongoing-visit" class="slide level2">
+<h2>Only ongoing visit</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="dv">0</span>,</span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">0</span>,</span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">recordsFrom =</span> <span class="st">"visit_occurrence"</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.
+ℹ `persistenceDays` (0) can not be equal to `collapseDays` (0) as back to back observation periods are not allowed,
+  setting `collapseDays = 1`.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>result3 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"Inpatient"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ongoing-record" class="slide level2">
+<h2>Ongoing record</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="dv">0</span>,</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">0</span>,</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">recordsFrom =</span> <span class="fu">c</span>(<span class="st">"visit_occurrence"</span>, <span class="st">"drug_exposure"</span>, <span class="st">"condition_occurrence"</span>, <span class="st">"procedure_occurrence"</span>)</span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.
+ℹ `persistenceDays` (0) can not be equal to `collapseDays` (0) as back to back observation periods are not allowed,
+  setting `collapseDays = 1`.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>result4 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"Ongoing record"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="collapse-by-365" class="slide level2">
+<h2>Collapse by 365</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="dv">365</span>,</span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">0</span>,</span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">recordsFrom =</span> <span class="fu">c</span>(<span class="st">"visit_occurrence"</span>, <span class="st">"drug_exposure"</span>, <span class="st">"condition_occurrence"</span>, <span class="st">"procedure_occurrence"</span>)</span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>result5 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"Collapse 365"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="collapse-by-365-and-persistence" class="slide level2">
+<h2>Collapse by 365 and persistence</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="dv">365</span>,</span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">365</span>,</span>
+<span id="cb30-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">recordsFrom =</span> <span class="fu">c</span>(<span class="st">"visit_occurrence"</span>, <span class="st">"drug_exposure"</span>, <span class="st">"condition_occurrence"</span>, <span class="st">"procedure_occurrence"</span>)</span>
+<span id="cb30-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using censor date as 2019-05-25 from source_release_date.
+ℹ `persistenceDays` (365) can not be equal to `collapseDays` (365) as back to back observation periods are not allowed,
+  setting `collapseDays = 366`.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>result6 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"Collapse 365 + persistence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="reliability-and-extraction-date" class="slide level2">
+<h2>Reliability and extraction date</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">buildObservationPeriod</span>(</span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cdm =</span> cdm,</span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">collapseDays =</span> <span class="dv">730</span>,</span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">persistenceDays =</span> <span class="dv">730</span>,</span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dateRange =</span> <span class="fu">c</span>(<span class="st">"1990-01-01"</span>, <span class="st">"2009-12-31"</span>),</span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">recordsFrom =</span> <span class="fu">c</span>(<span class="st">"visit_occurrence"</span>, <span class="st">"drug_exposure"</span>, <span class="st">"condition_occurrence"</span>, <span class="st">"procedure_occurrence"</span>)</span>
+<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ `persistenceDays` (730) can not be equal to `collapseDays` (730) as back to back observation periods are not allowed,
+  setting `collapseDays = 731`.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>result7 <span class="ot">&lt;-</span> <span class="fu">summariseInObservation</span>(cdm<span class="sc">$</span>observation_period, <span class="at">interval =</span> <span class="st">"years"</span>, <span class="at">output =</span> <span class="st">"person-days"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cdm_name =</span> <span class="st">"Collapse 730 + persistence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="combine-and-compare" class="slide level2">
+<h2>Combine and compare</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">bind</span>(result0, result1, result2, result3, result4, result5, result6, result7)</span>
+<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plotInObservation</span>(<span class="at">result =</span> result, <span class="at">colour =</span> <span class="st">"cdm_name"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section id="future-steps" class="slide level2">
+<h2>Future steps</h2>
+<ul>
+<li class="fragment"><p><code>buildDrugEra()</code></p></li>
+<li class="fragment"><p><code>buildConditionEra()</code></p></li>
+<li class="fragment"><p><code>cdmSample()</code></p></li>
+<li class="fragment"><p>…</p></li>
+</ul>
+</section>
+<section id="omopconstructor-2" class="slide level2">
+<h2>OmopConstructor</h2>
 <div style="display: flex; align-items: center; justify-content: space-between;">
 <div style="flex: 1;">
-<p>👉 <a href="https://darwin-eu.github.io/CohortCharacteristics"><strong>Packages website</strong></a><br>
-👉 <a href="https://cran.r-project.org/web/packages/CohortCharacteristics"><strong>CRAN link</strong></a><br>
-👉 <a href="https://cran.r-project.org/web/packages/CohortCharacteristics/CohortCharacteristics.pdf"><strong>Manual</strong></a></p>
+<p>👉 <a href="https://ohdsi.github.io/OmopConstructor"><strong>Packages website</strong></a><br>
+👉 <a href="https://cran.r-project.org/web/packages/OmopConstructor"><strong>CRAN link</strong></a>&nbsp;Soon 👉 <a href="https://cran.r-project.org/web/packages/OmopConstructor/OmopConstructor.pdf"><strong>Manual</strong></a> Soon</p>
 <p>📧 <a href="mailto:marti.catalasabate@ndorms.ox.ac.uk">marti.catalasabate@ndorms.ox.ac.uk</a></p>
 </div>
 <div style="flex: 1; text-align: center;">
-<p><img src="https://github.com/darwin-eu/CohortCharacteristics/blob/main/man/figures/logo.png?raw=true" width="600"></p>
+<p><img src="logo.png" width="600"></p>
 </div>
 </div>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>CohortCharacteristics: R package to Characterise cohorts</p>
+<p>OmopConstructor: An R Package for Customising Observation Periods in OMOP CDM Analyses</p>
 </div>
 </div></div>
 

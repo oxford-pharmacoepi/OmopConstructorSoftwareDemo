@@ -1,44 +1,135 @@
 [
   {
-    "objectID": "index.html#cohortcharacteristics",
-    "href": "index.html#cohortcharacteristics",
-    "title": "CohortCharacteristics",
-    "section": "CohortCharacteristics",
-    "text": "CohortCharacteristics"
+    "objectID": "index.html#omopconstructor",
+    "href": "index.html#omopconstructor",
+    "title": "OmopConstructor",
+    "section": "OmopConstructor",
+    "text": "OmopConstructor"
   },
   {
-    "objectID": "index.html#website",
-    "href": "index.html#website",
-    "title": "CohortCharacteristics",
-    "section": "Website",
-    "text": "Website\nCohort characteristics is on cran:\n\n\ninstall.packages(\"CohortCharacteristics\")\n\n\n\nYou can also install the development version from our github repo:\n\n\n\npak::pkg_install(\"darwin-eu/CohortCharacteristics\")\n\n\n\nThe documentation and vignettes of the packages can be found in our page: https://darwin-eu.github.io/CohortCharacteristics/"
+    "objectID": "index.html#omopconstructor-1",
+    "href": "index.html#omopconstructor-1",
+    "title": "OmopConstructor",
+    "section": "OmopConstructor",
+    "text": "OmopConstructor\nYou can install OmopConstructor from GitHub:\n\n\nlibrary(pak)\npkg_install(\"ohdsi/OmopConstructor\")\n\n\n\nIt has been submitted to CRAN and it should be updated there soon!\n\n\nThe documentation and vignettes of the packages can be found in our page: https://ohdsi.github.io/OmopConstructor/"
+  },
+  {
+    "objectID": "index.html#motivation",
+    "href": "index.html#motivation",
+    "title": "OmopConstructor",
+    "section": "Motivation",
+    "text": "Motivation"
   },
   {
     "objectID": "index.html#lets-get-started",
     "href": "index.html#lets-get-started",
-    "title": "CohortCharacteristics",
+    "title": "OmopConstructor",
     "section": "Let’s get started",
-    "text": "Let’s get started\nFor this presentation we will use the GiBleed dataset from omock.\n\nlibrary(omock)\ncdm &lt;- mockCdmFromDataset(datasetName = \"GiBleed\", source = \"duckdb\")\ncdm"
+    "text": "Let’s get started\nFor this presentation we will use the GiBleed dataset from omock.\n\nlibrary(omock)\ncdm &lt;- mockCdmFromDataset(datasetName = \"GiBleed\", source = \"duckdb\")\n\n\n\ncdm\n\n\n\n\n── # OMOP CDM reference (duckdb) of GiBleed ────────────────────────────────────────────────────────────────────────────\n\n\n• omop tables: care_site, cdm_source, concept, concept_ancestor, concept_class, concept_relationship, concept_synonym,\ncondition_era, condition_occurrence, cost, death, device_exposure, domain, dose_era, drug_era, drug_exposure,\ndrug_strength, fact_relationship, location, measurement, metadata, note, note_nlp, observation, observation_period,\npayer_plan_period, person, procedure_occurrence, provider, relationship, source_to_concept_map, specimen, visit_detail,\nvisit_occurrence, vocabulary\n\n\n• cohort tables: -\n\n\n• achilles tables: -\n\n\n• other tables: -"
   },
   {
-    "objectID": "index.html#person-table",
-    "href": "index.html#person-table",
-    "title": "CohortCharacteristics",
-    "section": "Person table",
-    "text": "Person table\nLet’s see the person table:\n\ncdm$person\n\n# Source:   table&lt;person&gt; [?? x 18]\n# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpvwbXES/file699f67175881.duckdb]\n   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id\n       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;\n 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516\n 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527\n 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527\n 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527\n 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516\n 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527\n 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527\n 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527\n 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527\n10       111              8532          1975              5            2 1975-05-02 00:00:00            8527\n# ℹ more rows\n# ℹ 11 more variables: ethnicity_concept_id &lt;int&gt;, location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;,\n#   person_source_value &lt;chr&gt;, gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;,\n#   race_source_concept_id &lt;int&gt;, ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;"
+    "objectID": "index.html#the-cdm-reference-object",
+    "href": "index.html#the-cdm-reference-object",
+    "title": "OmopConstructor",
+    "section": "The cdm reference object",
+    "text": "The cdm reference object\nIf you are not familiar with the cdm_reference object you can take a look to its formal definition: cdm_reference.\n\nWe usually would use the CDMConnector package to create a cdm_reference to our database."
   },
   {
-    "objectID": "index.html#snapshot",
-    "href": "index.html#snapshot",
-    "title": "CohortCharacteristics",
-    "section": "Snapshot",
-    "text": "Snapshot\n\n\n\n\n\n\n\n\n\n\n\n\nEstimate\n\nDatabase name\n\n\n\nGiBleed\n\n\n\n\nGeneral\n\n\nSnapshot date\n2025-09-25\n\n\nPerson count\n2,694\n\n\nVocabulary version\nv5.0 18-JAN-19\n\n\nObservation period\n\n\nN\n5,343\n\n\nStart date\n1908-09-22\n\n\nEnd date\n2019-07-03\n\n\nCdm\n\n\nSource name\nSynthea synthetic health database\n\n\nVersion\nv5.3.1\n\n\nHolder name\nOHDSI Community\n\n\nRelease date\n2019-05-25\n\n\nDescription\nSyntheaTM is a Synthetic Patient Population Simulator. The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.\n\n\nDocumentation reference\nhttps://synthetichealth.github.io/synthea/\n\n\nSource type\nduckdb"
+    "objectID": "index.html#characterisation-of-the-observation-period",
+    "href": "index.html#characterisation-of-the-observation-period",
+    "title": "OmopConstructor",
+    "section": "Characterisation of the observation period",
+    "text": "Characterisation of the observation period\n\ncdm$observation_period\n\n# Source:   table&lt;observation_period&gt; [?? x 5]\n# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpJ1wPYY/file2bf115e3b099.duckdb]\n   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id\n                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;\n 1                     6         6 1963-12-31                    2007-02-06                                44814724\n 2                    13        13 2009-04-26                    2019-04-14                                44814724\n 3                    27        27 2002-01-30                    2018-11-21                                44814724\n 4                    16        16 1971-10-14                    2017-11-02                                44814724\n 5                    55        55 2009-05-30                    2019-03-23                                44814724\n 6                    60        60 1990-11-21                    2019-01-23                                44814724\n 7                    42        42 1909-11-03                    2019-03-13                                44814724\n 8                    33        33 1986-05-12                    2018-09-10                                44814724\n 9                    18        18 1965-11-17                    2018-11-07                                44814724\n10                    25        25 2007-03-18                    2019-04-07                                44814724\n# ℹ more rows"
   },
   {
-    "objectID": "index.html#cohortcharacteristics-1",
-    "href": "index.html#cohortcharacteristics-1",
-    "title": "CohortCharacteristics",
-    "section": "CohortCharacteristics",
-    "text": "CohortCharacteristics\n\n\n👉 Packages website\n👉 CRAN link\n👉 Manual\n📧 marti.catalasabate@ndorms.ox.ac.uk"
+    "objectID": "index.html#characterisation-of-the-observation-period-1",
+    "href": "index.html#characterisation-of-the-observation-period-1",
+    "title": "OmopConstructor",
+    "section": "Characterisation of the observation period",
+    "text": "Characterisation of the observation period\nWe will use OmopSketch to characterise the current observation period.\n\n\nlibrary(OmopSketch)\nresult &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", sex = TRUE)\nplotInObservation(result, colour = \"sex\")"
+  },
+  {
+    "objectID": "index.html#characterisation-of-the-observation-period-2",
+    "href": "index.html#characterisation-of-the-observation-period-2",
+    "title": "OmopConstructor",
+    "section": "Characterisation of the observation period",
+    "text": "Characterisation of the observation period\n\nresult &lt;- summariseObservationPeriod(cdm$observation_period)\ntableObservationPeriod(result)\n\n\n\n\n\n\n\n\n\n\n\n\n\nObservation period ordinal\nVariable name\nEstimate name\n\nCDM name\n\n\n\nGiBleed\n\n\n\n\nall\nNumber records\nN\n2,694\n\n\n\nNumber subjects\nN\n2,694\n\n\n\nRecords per person\nmean (sd)\n1.00 (0.00)\n\n\n\n\nmedian [Q25 - Q75]\n1 [1 - 1]\n\n\n\nDuration in days\nmean (sd)\n21,602.60 (5,460.69)\n\n\n\n\nmedian [Q25 - Q75]\n20,872 [17,495 - 24,702]\n\n\n1st\nNumber subjects\nN\n2,694\n\n\n\nDuration in days\nmean (sd)\n21,602.60 (5,460.69)\n\n\n\n\nmedian [Q25 - Q75]\n20,872 [17,495 - 24,702]"
+  },
+  {
+    "objectID": "index.html#build-observation-period",
+    "href": "index.html#build-observation-period",
+    "title": "OmopConstructor",
+    "section": "Build observation period",
+    "text": "Build observation period\n\nlibrary(OmopConstructor)\ncdm &lt;- buildObservationPeriod(cdm = cdm)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\n\n\n\n\ncdm$observation_period\n\n# Source:   table&lt;results.test_observation_period&gt; [?? x 5]\n# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpJ1wPYY/file2bf115e3b099.duckdb]\n   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id\n                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;\n 1                     1         1 1953-02-06                    2019-05-25                                   32817\n 2                     2         2 1920-07-01                    2019-05-25                                   32817\n 3                     3         3 1923-12-22                    2019-05-25                                   32817\n 4                     4         5 1968-10-30                    2019-05-25                                   32817\n 5                     5         6 1964-04-07                    2019-05-25                                   32817\n 6                     6         7 1968-12-06                    2019-05-25                                   32817\n 7                     7         9 1978-10-26                    2019-05-25                                   32817\n 8                     8        11 1955-01-11                    2019-05-25                                   32817\n 9                     9        12 1963-05-08                    2019-05-25                                   32817\n10                    10        16 1972-01-19                    2019-05-25                                   32817\n# ℹ more rows"
+  },
+  {
+    "objectID": "index.html#characterise-observation-period",
+    "href": "index.html#characterise-observation-period",
+    "title": "OmopConstructor",
+    "section": "Characterise observation period",
+    "text": "Characterise observation period"
+  },
+  {
+    "objectID": "index.html#first-to-last",
+    "href": "index.html#first-to-last",
+    "title": "OmopConstructor",
+    "section": "First to last",
+    "text": "First to last\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = Inf,\n  persistenceDays = 0\n)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\n\nresult2 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"First to last\")"
+  },
+  {
+    "objectID": "index.html#only-ongoing-visit",
+    "href": "index.html#only-ongoing-visit",
+    "title": "OmopConstructor",
+    "section": "Only ongoing visit",
+    "text": "Only ongoing visit\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = 0,\n  persistenceDays = 0,\n  recordsFrom = \"visit_occurrence\"\n)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\nℹ `persistenceDays` (0) can not be equal to `collapseDays` (0) as back to back observation periods are not allowed,\n  setting `collapseDays = 1`.\n\nresult3 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"Inpatient\")"
+  },
+  {
+    "objectID": "index.html#ongoing-record",
+    "href": "index.html#ongoing-record",
+    "title": "OmopConstructor",
+    "section": "Ongoing record",
+    "text": "Ongoing record\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = 0,\n  persistenceDays = 0,\n  recordsFrom = c(\"visit_occurrence\", \"drug_exposure\", \"condition_occurrence\", \"procedure_occurrence\")\n)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\nℹ `persistenceDays` (0) can not be equal to `collapseDays` (0) as back to back observation periods are not allowed,\n  setting `collapseDays = 1`.\n\nresult4 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"Ongoing record\")"
+  },
+  {
+    "objectID": "index.html#collapse-by-365",
+    "href": "index.html#collapse-by-365",
+    "title": "OmopConstructor",
+    "section": "Collapse by 365",
+    "text": "Collapse by 365\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = 365,\n  persistenceDays = 0,\n  recordsFrom = c(\"visit_occurrence\", \"drug_exposure\", \"condition_occurrence\", \"procedure_occurrence\")\n)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\n\nresult5 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"Collapse 365\")"
+  },
+  {
+    "objectID": "index.html#collapse-by-365-and-persistence",
+    "href": "index.html#collapse-by-365-and-persistence",
+    "title": "OmopConstructor",
+    "section": "Collapse by 365 and persistence",
+    "text": "Collapse by 365 and persistence\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = 365,\n  persistenceDays = 365,\n  recordsFrom = c(\"visit_occurrence\", \"drug_exposure\", \"condition_occurrence\", \"procedure_occurrence\")\n)\n\nℹ Using censor date as 2019-05-25 from source_release_date.\nℹ `persistenceDays` (365) can not be equal to `collapseDays` (365) as back to back observation periods are not allowed,\n  setting `collapseDays = 366`.\n\nresult6 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"Collapse 365 + persistence\")"
+  },
+  {
+    "objectID": "index.html#reliability-and-extraction-date",
+    "href": "index.html#reliability-and-extraction-date",
+    "title": "OmopConstructor",
+    "section": "Reliability and extraction date",
+    "text": "Reliability and extraction date\n\ncdm &lt;- buildObservationPeriod(\n  cdm = cdm,\n  collapseDays = 730,\n  persistenceDays = 730,\n  dateRange = c(\"1990-01-01\", \"2009-12-31\"),\n  recordsFrom = c(\"visit_occurrence\", \"drug_exposure\", \"condition_occurrence\", \"procedure_occurrence\")\n)\n\nℹ `persistenceDays` (730) can not be equal to `collapseDays` (730) as back to back observation periods are not allowed,\n  setting `collapseDays = 731`.\n\nresult7 &lt;- summariseInObservation(cdm$observation_period, interval = \"years\", output = \"person-days\") |&gt;\n  mutate(cdm_name = \"Collapse 730 + persistence\")"
+  },
+  {
+    "objectID": "index.html#combine-and-compare",
+    "href": "index.html#combine-and-compare",
+    "title": "OmopConstructor",
+    "section": "Combine and compare",
+    "text": "Combine and compare\n\nlibrary(ggplot2)\nresult &lt;- bind(result0, result1, result2, result3, result4, result5, result6, result7)\nplotInObservation(result = result, colour = \"cdm_name\")"
+  },
+  {
+    "objectID": "index.html#future-steps",
+    "href": "index.html#future-steps",
+    "title": "OmopConstructor",
+    "section": "Future steps",
+    "text": "Future steps\n\nbuildDrugEra()\nbuildConditionEra()\ncdmSample()\n…"
+  },
+  {
+    "objectID": "index.html#omopconstructor-2",
+    "href": "index.html#omopconstructor-2",
+    "title": "OmopConstructor",
+    "section": "OmopConstructor",
+    "text": "OmopConstructor\n\n\n👉 Packages website\n👉 CRAN link Soon 👉 Manual Soon\n📧 marti.catalasabate@ndorms.ox.ac.uk"
   }
 ]
