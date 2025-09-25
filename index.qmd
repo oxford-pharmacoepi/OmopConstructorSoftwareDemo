@@ -1,12 +1,12 @@
 ---
-title: "CohortCharacteristics"
-subtitle: "A R package to Characterise cohorts"
+title: "OmopConstructor"
+subtitle: "An R Package for Customising Observation Periods in OMOP CDM Analyses"
 format: 
   revealjs:
-    footer: "CohortCharacteristics: R package to Characterise cohorts"
+    footer: "OmopConstructor: An R Package for Customising Observation Periods in OMOP CDM Analyses"
 ---
 
-## CohortCharacteristics
+## OmopConstructor
 
 ```{r, echo = FALSE}
 options("width"=120)
@@ -16,31 +16,30 @@ library(visOmopResults)
 library(gt)
 ```
 
-![](https://github.com/darwin-eu/CohortCharacteristics/blob/main/man/figures/logo.png?raw=true){fig-align="center"}
+![](logo.png){fig-align="center"}
 
-## Website
+## OmopConstructor
 
-Cohort characteristics is on cran:
+You can install **OmopConstructor** from GitHub:
 
 . . .
 
-```{r, eval = FALSE}
-install.packages("CohortCharacteristics")
+```{r}
+library(pak)
+pkg_install("ohdsi/OmopConstructor")
 ```
 
 . . .
 
-You can also install the development version from our github repo:
+It has been submitted to CRAN and it should be updated there soon!
 
 . . .
 
-```{r, eval = FALSE}
-pak::pkg_install("darwin-eu/CohortCharacteristics")
-```
+The documentation and vignettes of the packages can be found in our page: <https://ohdsi.github.io/OmopConstructor/>
 
-. . .
+## Motivation
 
-The documentation and vignettes of the packages can be found in our page: <https://darwin-eu.github.io/CohortCharacteristics/>
+![](fig_8.png){fig-align="center"}
 
 ## Let's get started
 
@@ -49,39 +48,184 @@ For this presentation we will use the **GiBleed** dataset from [**omock**](https
 ```{r}
 library(omock)
 cdm <- mockCdmFromDataset(datasetName = "GiBleed", source = "duckdb")
+```
+
+. . .
+
+```{r, message=TRUE}
 cdm
 ```
 
-# Section title
+## The cdm reference object
 
-## Person table
+If you are not familiar with the `cdm_reference` object you can take a look to its formal definition: [cdm_reference](https://darwin-eu-dev.github.io/omopgenerics/articles/cdm_reference.html).
 
-Let's see the *person* table:
+. . .
+
+We usually would use the [CDMConnector](https://darwin-eu.github.io/CDMConnector/) package to create a cdm_reference to our database.
+
+## Characterisation of the observation period
 
 ```{r}
-cdm$person
+cdm$observation_period
 ```
 
-## Snapshot
+## Characterisation of the observation period
+
+We will use [OmopSketch](https://ohdsi.github.io/OmopSketch/) to characterise the current observation period.
+
+. . .
+
+```{r}
+library(OmopSketch)
+result <- summariseInObservation(cdm$observation_period, interval = "years", sex = TRUE)
+plotInObservation(result, colour = "sex")
+```
 
 ```{r, echo=FALSE}
-library(OmopSketch)
-result <- summariseOmopSnapshot(cdm = cdm)
-tableOmopSnapshot(result = result)
+result0 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  dplyr::mutate(cdm_name = "Original")
 ```
 
-## CohortCharacteristics
+## Characterisation of the observation period
+
+```{r}
+result <- summariseObservationPeriod(cdm$observation_period)
+tableObservationPeriod(result)
+```
+
+## Build observation period
+
+```{r, message=TRUE}
+library(OmopConstructor)
+cdm <- buildObservationPeriod(cdm = cdm)
+```
+
+. . .
+
+```{r}
+cdm$observation_period
+```
+
+## Characterise observation period
+
+```{r, echo=FALSE}
+library(dplyr)
+result1 <- summariseInObservation(cdm$observation_period, interval = "years", sex = TRUE) |>
+  mutate(cdm_name = "First to extraction")
+plotInObservation(result1, colour = "sex")
+result1 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "First to extraction")
+```
+
+## First to last
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = Inf,
+  persistenceDays = 0
+)
+result2 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "First to last")
+```
+
+## Only ongoing visit
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = 0,
+  persistenceDays = 0,
+  recordsFrom = "visit_occurrence"
+)
+result3 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "Inpatient")
+```
+
+## Ongoing record
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = 0,
+  persistenceDays = 0,
+  recordsFrom = c("visit_occurrence", "drug_exposure", "condition_occurrence", "procedure_occurrence")
+)
+result4 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "Ongoing record")
+```
+
+## Collapse by 365
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = 365,
+  persistenceDays = 0,
+  recordsFrom = c("visit_occurrence", "drug_exposure", "condition_occurrence", "procedure_occurrence")
+)
+result5 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "Collapse 365")
+```
+
+## Collapse by 365 and persistence
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = 365,
+  persistenceDays = 365,
+  recordsFrom = c("visit_occurrence", "drug_exposure", "condition_occurrence", "procedure_occurrence")
+)
+result6 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "Collapse 365 + persistence")
+```
+
+## Reliability and extraction date
+
+```{r, message=TRUE}
+cdm <- buildObservationPeriod(
+  cdm = cdm,
+  collapseDays = 730,
+  persistenceDays = 730,
+  dateRange = c("1990-01-01", "2009-12-31"),
+  recordsFrom = c("visit_occurrence", "drug_exposure", "condition_occurrence", "procedure_occurrence")
+)
+result7 <- summariseInObservation(cdm$observation_period, interval = "years", output = "person-days") |>
+  mutate(cdm_name = "Collapse 730 + persistence")
+```
+
+## Combine and compare
+
+```{r}
+library(ggplot2)
+result <- bind(result0, result1, result2, result3, result4, result5, result6, result7)
+plotInObservation(result = result, colour = "cdm_name")
+```
+
+## Future steps
+
+- `buildDrugEra()`
+
+- `buildConditionEra()`
+
+- `cdmSample()`
+
+- ...
+
+## OmopConstructor
 
 ::: {style="display: flex; align-items: center; justify-content: space-between;"}
 ::: {style="flex: 1;"}
-👉 [**Packages website**](https://darwin-eu.github.io/CohortCharacteristics)\
-👉 [**CRAN link**](https://cran.r-project.org/web/packages/CohortCharacteristics)\
-👉 [**Manual**](https://cran.r-project.org/web/packages/CohortCharacteristics/CohortCharacteristics.pdf)
+👉 [**Packages website**](https://ohdsi.github.io/OmopConstructor)\
+👉 [**CRAN link**](https://cran.r-project.org/web/packages/OmopConstructor)\ Soon
+👉 [**Manual**](https://cran.r-project.org/web/packages/OmopConstructor/OmopConstructor.pdf) Soon
 
 📧 <a href="mailto:marti.catalasabate@ndorms.ox.ac.uk">marti.catalasabate\@ndorms.ox.ac.uk</a>
 :::
 
 ::: {style="flex: 1; text-align: center;"}
-<img src="https://github.com/darwin-eu/CohortCharacteristics/blob/main/man/figures/logo.png?raw=true" width="600"/>
+<img src="logo.png" width="600"/>
 :::
 :::
