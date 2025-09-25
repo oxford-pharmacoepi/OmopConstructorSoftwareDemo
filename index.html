@@ -6,8 +6,8 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <title>CohortCharacteristics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-8db7232787301159a947427aeaa91801.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-58ef0c1599aa8ec985714a9f26e7c669.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -210,7 +210,7 @@
 <p>Cohort characteristics is on cran:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortCharacteristics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortCharacteristics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment">
@@ -218,7 +218,7 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"darwin-eu/CohortCharacteristics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment">
@@ -229,9 +229,9 @@
 <h2>Let’s get started</h2>
 <p>For this presentation we will use the <strong>GiBleed</strong> dataset from <a href="https://ohdsi.github.io/omock/"><strong>omock</strong></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omock)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(omock)</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">mockCdmFromDataset</span>(<span class="at">datasetName =</span> <span class="st">"GiBleed"</span>, <span class="at">source =</span> <span class="st">"duckdb"</span>)</span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>cdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>cdm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section>
@@ -243,10 +243,10 @@
 <h2>Person table</h2>
 <p>Let’s see the <em>person</em> table:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>person</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>cdm<span class="sc">$</span>person</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB 1.3.3-dev231 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/Rtmpbnr1nH/file69be652c28e2.duckdb]
+# Database: DuckDB 1.4.0 [unknown@Linux 6.11.0-1018-azure:R 4.4.1//tmp/RtmpvwbXES/file699f67175881.duckdb]
    person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id
        &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;
  1         6              8532          1963             12           31 1963-12-31 00:00:00            8516
@@ -270,23 +270,23 @@
 <h2>Snapshot</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="bofygyxtos" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bofygyxtos table {
+<div id="qwxodaacjk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qwxodaacjk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bofygyxtos thead, #bofygyxtos tbody, #bofygyxtos tfoot, #bofygyxtos tr, #bofygyxtos td, #bofygyxtos th {
+#qwxodaacjk thead, #qwxodaacjk tbody, #qwxodaacjk tfoot, #qwxodaacjk tr, #qwxodaacjk td, #qwxodaacjk th {
   border-style: none;
 }
 
-#bofygyxtos p {
+#qwxodaacjk p {
   margin: 0;
   padding: 0;
 }
 
-#bofygyxtos .gt_table {
+#qwxodaacjk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -312,12 +312,12 @@
   border-left-color: #D9D9D9;
 }
 
-#bofygyxtos .gt_caption {
+#qwxodaacjk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bofygyxtos .gt_title {
+#qwxodaacjk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -329,7 +329,7 @@
   border-bottom-width: 0;
 }
 
-#bofygyxtos .gt_subtitle {
+#qwxodaacjk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -341,7 +341,7 @@
   border-top-width: 0;
 }
 
-#bofygyxtos .gt_heading {
+#qwxodaacjk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -353,13 +353,13 @@
   border-right-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_bottom_border {
+#qwxodaacjk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_col_headings {
+#qwxodaacjk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -374,7 +374,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_col_heading {
+#qwxodaacjk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -394,7 +394,7 @@
   overflow-x: hidden;
 }
 
-#bofygyxtos .gt_column_spanner_outer {
+#qwxodaacjk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -406,15 +406,15 @@
   padding-right: 4px;
 }
 
-#bofygyxtos .gt_column_spanner_outer:first-child {
+#qwxodaacjk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bofygyxtos .gt_column_spanner_outer:last-child {
+#qwxodaacjk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bofygyxtos .gt_column_spanner {
+#qwxodaacjk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -426,11 +426,11 @@
   width: 100%;
 }
 
-#bofygyxtos .gt_spanner_row {
+#qwxodaacjk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bofygyxtos .gt_group_heading {
+#qwxodaacjk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -456,7 +456,7 @@
   text-align: left;
 }
 
-#bofygyxtos .gt_empty_group_heading {
+#qwxodaacjk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -471,15 +471,15 @@
   vertical-align: middle;
 }
 
-#bofygyxtos .gt_from_md > :first-child {
+#qwxodaacjk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bofygyxtos .gt_from_md > :last-child {
+#qwxodaacjk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bofygyxtos .gt_row {
+#qwxodaacjk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -498,7 +498,7 @@
   overflow-x: hidden;
 }
 
-#bofygyxtos .gt_stub {
+#qwxodaacjk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -511,7 +511,7 @@
   padding-right: 5px;
 }
 
-#bofygyxtos .gt_stub_row_group {
+#qwxodaacjk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -525,15 +525,15 @@
   vertical-align: top;
 }
 
-#bofygyxtos .gt_row_group_first td {
+#qwxodaacjk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bofygyxtos .gt_row_group_first th {
+#qwxodaacjk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bofygyxtos .gt_summary_row {
+#qwxodaacjk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -543,16 +543,16 @@
   padding-right: 5px;
 }
 
-#bofygyxtos .gt_first_summary_row {
+#qwxodaacjk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_first_summary_row.thick {
+#qwxodaacjk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bofygyxtos .gt_last_summary_row {
+#qwxodaacjk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,7 +562,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_grand_summary_row {
+#qwxodaacjk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -572,7 +572,7 @@
   padding-right: 5px;
 }
 
-#bofygyxtos .gt_first_grand_summary_row {
+#qwxodaacjk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -582,7 +582,7 @@
   border-top-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_last_grand_summary_row_top {
+#qwxodaacjk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -592,11 +592,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_striped {
+#qwxodaacjk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bofygyxtos .gt_table_body {
+#qwxodaacjk .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #D9D9D9;
@@ -605,7 +605,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_footnotes {
+#qwxodaacjk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -619,7 +619,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_footnote {
+#qwxodaacjk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -628,7 +628,7 @@
   padding-right: 5px;
 }
 
-#bofygyxtos .gt_sourcenotes {
+#qwxodaacjk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -642,7 +642,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bofygyxtos .gt_sourcenote {
+#qwxodaacjk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -650,77 +650,77 @@
   padding-right: 5px;
 }
 
-#bofygyxtos .gt_left {
+#qwxodaacjk .gt_left {
   text-align: left;
 }
 
-#bofygyxtos .gt_center {
+#qwxodaacjk .gt_center {
   text-align: center;
 }
 
-#bofygyxtos .gt_right {
+#qwxodaacjk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bofygyxtos .gt_font_normal {
+#qwxodaacjk .gt_font_normal {
   font-weight: normal;
 }
 
-#bofygyxtos .gt_font_bold {
+#qwxodaacjk .gt_font_bold {
   font-weight: bold;
 }
 
-#bofygyxtos .gt_font_italic {
+#qwxodaacjk .gt_font_italic {
   font-style: italic;
 }
 
-#bofygyxtos .gt_super {
+#qwxodaacjk .gt_super {
   font-size: 65%;
 }
 
-#bofygyxtos .gt_footnote_marks {
+#qwxodaacjk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bofygyxtos .gt_asterisk {
+#qwxodaacjk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bofygyxtos .gt_indent_1 {
+#qwxodaacjk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bofygyxtos .gt_indent_2 {
+#qwxodaacjk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bofygyxtos .gt_indent_3 {
+#qwxodaacjk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bofygyxtos .gt_indent_4 {
+#qwxodaacjk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bofygyxtos .gt_indent_5 {
+#qwxodaacjk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bofygyxtos .katex-display {
+#qwxodaacjk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bofygyxtos div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qwxodaacjk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
@@ -739,12 +739,12 @@ Database name
 </thead>
 <tbody class="gt_table_body">
 <tr class="gt_group_heading_row odd">
-<td colspan="2" id="General" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">General</td>
+<th colspan="2" id="General" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">General</th>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="General  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Snapshot date</td>
 <td class="gt_row gt_left" style="text-align: right;" headers="General  [header_name]Database name
-[header_level]GiBleed">2025-09-12</td>
+[header_level]GiBleed">2025-09-25</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="General  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Person count</td>
@@ -757,7 +757,7 @@ Database name
 [header_level]GiBleed">v5.0 18-JAN-19</td>
 </tr>
 <tr class="gt_group_heading_row odd">
-<td colspan="2" id="Observation period" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Observation period</td>
+<th colspan="2" id="Observation period" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Observation period</th>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Observation period  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
@@ -775,7 +775,7 @@ Database name
 [header_level]GiBleed">2019-07-03</td>
 </tr>
 <tr class="gt_group_heading_row odd">
-<td colspan="2" id="Cdm" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Cdm</td>
+<th colspan="2" id="Cdm" class="gt_group_heading" data-quarto-table-cell-role="th" style="background-color: #E9E9E9; font-weight: bold" scope="colgroup">Cdm</th>
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" headers="Cdm  Estimate" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Source name</td>
@@ -1026,7 +1026,7 @@ Database name
         margin: 7.0e-2,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1138,13 +1138,14 @@ Database name
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
