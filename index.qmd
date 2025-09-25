@@ -14,6 +14,7 @@ options("width"=120)
 library(duckdb)
 library(visOmopResults)
 library(gt)
+library(ggplot2)
 ```
 
 ![](logo.png){fig-align="center"}
@@ -199,7 +200,6 @@ result7 <- summariseInObservation(cdm$observation_period, interval = "years", ou
 ## Combine and compare
 
 ```{r}
-library(ggplot2)
 result <- bind(result0, result1, result2, result3, result4, result5, result6, result7)
 plotInObservation(result = result, colour = "cdm_name")
 ```
